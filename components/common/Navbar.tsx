@@ -14,7 +14,10 @@ const Navbar = () => {
     <nav className="p-5 w-full border-b-2">
       <div className="flex w-full">
         <div className="flex-none mr-2 ">
-          <CustomLink className="text-4xl italic font-bold " href="/" as="/">
+          <CustomLink
+            className="pl-4 text-4xl italic font-bold "
+            href="/"
+            as="/">
             <span onClick={handleClick}>PHOTOCARD</span>
           </CustomLink>
         </div>

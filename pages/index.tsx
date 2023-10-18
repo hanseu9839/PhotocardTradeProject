@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import React from "react";
-import Banner from "../components/home/Banner";
+import MainCategory from "@/components/home/MainCategory";
 
 const Home: NextPage = () => {
   return (
@@ -9,7 +9,9 @@ const Home: NextPage = () => {
       <Head>
         <title>HOME | 포토카드 거래 사이트</title>
       </Head>
-      <div></div>
+      <div>
+        <MainCategory></MainCategory>
+      </div>
     </>
   );
 };
