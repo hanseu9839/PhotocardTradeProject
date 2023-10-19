@@ -3,10 +3,15 @@ import NavLink from "./NavLink";
 import CustomLink from "./CustomLink";
 import { usePageDispatch } from "../../lib/context/PageContext";
 import { PHOTOCARD_MENU_BUTTON } from "../../lib/utils/styles";
+import { useRouter } from "next/router";
 
 const Navbar = () => {
   const setPage = usePageDispatch();
   const handleClick = React.useCallback(() => setPage?.(0), []);
+  const router = useRouter();
+  const saleId = router.query.saleId;
+
+  console.log(saleId);
 
   const saleIdTest = "1234";
 
