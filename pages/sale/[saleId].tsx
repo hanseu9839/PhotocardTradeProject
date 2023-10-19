@@ -5,9 +5,6 @@ import SaleInput from "@/components/sale/SaleInput";
 const Detail: NextPage = () => {
   const router = useRouter();
   const saleId = router.query.saleId;
-  const onPageLoadHandler = () => {
-    router.push("/");
-  };
 
   return (
     <>

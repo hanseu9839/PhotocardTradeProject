@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 
 const SaleInput = () => {
@@ -6,7 +6,9 @@ const SaleInput = () => {
   const [saleCategory, setSaleCategory] = useState("");
   const [saleSelect, setSaleSelect] = useState("");
   const [saleContent, setSaleContent] = useState("");
+  const [saleImg, setSaleImg] = useState("");
   const router = useRouter();
+  const imgRef: any = useRef();
 
   const handleName = (e: any) => {
     setSaleName(e.target.value);
@@ -28,11 +30,21 @@ const SaleInput = () => {
     router.push("/");
   };
 
+  const handleSaleImage = () => {
+    const file = imgRef.current.files[0];
+    const reader: any = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setSaleImg(reader.result);
+    };
+  };
+
   const data = {
     name: saleName,
     category: saleCategory,
     select: saleSelect,
     content: saleContent,
+    image: saleImg,
   };
 
   useEffect(() => {
@@ -41,6 +53,21 @@ const SaleInput = () => {
 
   return (
     <>
+      <label htmlFor="imageUpload">
+        <img
+          src={saleImg ? saleImg : "/photocam.png"}
+          alt="프로필이미지"
+          width={200}
+          className="border-2"></img>
+      </label>
+      <input
+        type="file"
+        accept="image/*"
+        id="imageUpload"
+        className="hidden"
+        onChange={handleSaleImage}
+        ref={imgRef}
+      />
       <div className="flex">
         <p>상품명</p>
         <input
