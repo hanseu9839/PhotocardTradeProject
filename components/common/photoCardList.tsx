@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { DataType } from "@/lib/types/dataType";
 
 const photoCardList = () => {
-  const [data, setData] = useState("");
+  const [data, setData] = useState<DataType>();
 
   useEffect(() => {
-    const b = localStorage.getItem("json");
-    const c: any = JSON.parse(b);
-    setData(c);
+    setData(JSON.parse(localStorage.getItem("json")));
   }, []);
-
-  console.log(data);
 
   return (
     <>

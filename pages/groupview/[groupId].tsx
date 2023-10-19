@@ -12,9 +12,6 @@ const Detail: NextPage = () => {
   return (
     <>
       <MainCategory></MainCategory>
-      <h1>dd</h1>
-      <p className="text-xl">{groupId}</p>
-      <button onClick={onPageLoadHandler}>Go To home</button>
     </>
   );
 };

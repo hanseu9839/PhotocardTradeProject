@@ -2,10 +2,6 @@ export const APP_NAME = `PHOTOCARD`;
 
 export const CATEGORY = [
   {
-    engname: "allgroup",
-    korname: "전체보기",
-  },
-  {
     engname: "boygroup",
     korname: "보이그룹",
   },

@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
+import { CATEGORY } from "@/lib/utils/constant";
+import { DataType } from "@/lib/types/dataType";
 
 const SaleInput = () => {
   const [saleName, setSaleName] = useState("");
@@ -7,22 +9,24 @@ const SaleInput = () => {
   const [saleSelect, setSaleSelect] = useState("");
   const [saleContent, setSaleContent] = useState("");
   const [saleImg, setSaleImg] = useState("");
-  const router = useRouter();
-  const imgRef: any = useRef();
+  const tradeList = ["직거래", "택배거래"];
 
-  const handleName = (e: any) => {
+  const router = useRouter();
+  const imgRef = useRef<HTMLInputElement | null>();
+
+  const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSaleName(e.target.value);
   };
 
-  const handleCategory = (e: any) => {
+  const handleCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSaleCategory(e.target.value);
   };
 
-  const hanldeSelect = (e: any) => {
+  const hanldeSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSaleSelect(e.target.value);
   };
 
-  const handleContent = (e: any) => {
+  const handleContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setSaleContent(e.target.value);
   };
 
@@ -32,14 +36,14 @@ const SaleInput = () => {
 
   const handleSaleImage = () => {
     const file = imgRef.current.files[0];
-    const reader: any = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      setSaleImg(reader.result);
+      setSaleImg(reader.result.toString());
     };
   };
 
-  const data = {
+  const data: DataType = {
     name: saleName,
     category: saleCategory,
     select: saleSelect,
@@ -56,7 +60,7 @@ const SaleInput = () => {
       <label htmlFor="imageUpload">
         <img
           src={saleImg ? saleImg : "/photocam.png"}
-          alt="프로필이미지"
+          alt="이미지"
           width={200}
           className="border-2"></img>
       </label>
@@ -68,6 +72,7 @@ const SaleInput = () => {
         onChange={handleSaleImage}
         ref={imgRef}
       />
+
       <div className="flex">
         <p>상품명</p>
         <input
@@ -75,40 +80,34 @@ const SaleInput = () => {
           placeholder="상품명을 입력해주세요"
           onChange={handleName}></input>
       </div>
+
       <div className="flex">
         <label htmlFor="category">카테고리</label>
         <select name="group" id="category" onChange={handleCategory}>
-          <option value="boygroup">보이그룹</option>
-          <option value="girlgroup">걸그룹</option>
-          <option value="boysolo">솔로(남)</option>
-          <option value="girlsolo">솔로(여)</option>
-          <option value="actorboy">배우(남)</option>
-          <option value="actorgirl">배우(여)</option>
-          <option value="character">방송/예능/캐릭터</option>
+          {CATEGORY.map((group) => (
+            <option value={group.engname}>{group.korname}</option>
+          ))}
         </select>
       </div>
+
       <div className="select">
         <div className="flex">
           <p>거래형태</p>
-          <input
-            type="radio"
-            id="select"
-            name="shop"
-            value="직거래"
-            onChange={hanldeSelect}
-          />
-          <label htmlFor="select">직거래</label>
-
-          <input
-            type="radio"
-            id="select2"
-            name="shop"
-            value="택배거래"
-            onChange={hanldeSelect}
-          />
-          <label htmlFor="select2">택배거래</label>
+          {tradeList.map((trade, index) => (
+            <>
+              <input
+                type="radio"
+                id={`select${index}`}
+                name="shop"
+                value={trade}
+                onChange={hanldeSelect}
+              />
+              <label htmlFor={`select${index}`}>{trade}</label>
+            </>
+          ))}
         </div>
       </div>
+
       <div className="flex">
         <p>설명</p>
         <textarea onChange={handleContent} className="border-2"></textarea>
