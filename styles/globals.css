@@ -1,9 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-.select {
-  padding: 15px 10px;
-}
+
 .select input[type="radio"] {
   display: none;
 }

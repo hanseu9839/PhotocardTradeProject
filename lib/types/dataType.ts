@@ -1,7 +1,7 @@
-export interface DataType {
-  name: string;
-  category: string;
-  select: string;
-  content: string;
-  image: string;
-}
+export interface DataType [{
+    name,
+    category,
+    select,
+    content,
+    image,
+  }]

@@ -30,10 +30,6 @@ const SaleInput = () => {
     setSaleContent(e.target.value);
   };
 
-  const handleSaleSubmit = () => {
-    router.push("/");
-  };
-
   const handleSaleImage = () => {
     const file = imgRef.current.files[0];
     const reader = new FileReader();
@@ -43,77 +39,117 @@ const SaleInput = () => {
     };
   };
 
-  const data: DataType = {
-    name: saleName,
-    category: saleCategory,
-    select: saleSelect,
-    content: saleContent,
-    image: saleImg,
-  };
+  const data: any = [
+    {
+      name: saleName,
+      category: saleCategory,
+      select: saleSelect,
+      content: saleContent,
+      image: saleImg,
+    },
+  ];
+  let newjson: any = [];
 
-  useEffect(() => {
-    localStorage.setItem("json", JSON.stringify(data));
-  }, [data]);
+  const handleSaleSubmit = () => {
+    if (localStorage.getItem("json")) {
+      JSON.parse(localStorage.getItem("json"));
+      let newjson = JSON.parse(localStorage.getItem("json"));
+      newjson.push(data);
+      console.log(newjson);
+      localStorage.setItem("json", JSON.stringify(newjson));
+    } else {
+      newjson.push(data);
+      localStorage.setItem("json", JSON.stringify(newjson));
+    }
+    router.push("/");
+  };
 
   return (
     <>
-      <label htmlFor="imageUpload">
-        <img
-          src={saleImg ? saleImg : "/photocam.png"}
-          alt="이미지"
-          width={200}
-          className="border-2"></img>
-      </label>
-      <input
-        type="file"
-        accept="image/*"
-        id="imageUpload"
-        className="hidden"
-        onChange={handleSaleImage}
-        ref={imgRef}
-      />
-
-      <div className="flex">
-        <p>상품명</p>
-        <input
-          className="border-2 border-slate-400"
-          placeholder="상품명을 입력해주세요"
-          onChange={handleName}></input>
-      </div>
-
-      <div className="flex">
-        <label htmlFor="category">카테고리</label>
-        <select name="group" id="category" onChange={handleCategory}>
-          {CATEGORY.map((group) => (
-            <option value={group.engname}>{group.korname}</option>
-          ))}
-        </select>
-      </div>
-
-      <div className="select">
-        <div className="flex">
-          <p>거래형태</p>
-          {tradeList.map((trade, index) => (
-            <>
+      <div className="p-20 w-full  [text-align:-webkit-center]">
+        <div className="w-[60%]">
+          <div className="flex">
+            <div className="w-[250px] h-[250px]">
+              <label htmlFor="imageUpload">
+                <img
+                  src={saleImg ? saleImg : "/photocam.png"}
+                  alt="이미지"
+                  className="border-2 h-full"></img>
+              </label>
               <input
-                type="radio"
-                id={`select${index}`}
-                name="shop"
-                value={trade}
-                onChange={hanldeSelect}
+                type="file"
+                accept="image/*"
+                id="imageUpload"
+                className="hidden"
+                onChange={handleSaleImage}
+                ref={imgRef}
               />
-              <label htmlFor={`select${index}`}>{trade}</label>
-            </>
-          ))}
-        </div>
-      </div>
+            </div>
+            <div className="w-full h-full pl-20 text-center text-lg">
+              <ul className="flex grid grid-cols-3">
+                <li>번호</li>
+                <li>가격</li>
+                <li>판매여부</li>
+              </ul>
+            </div>
+          </div>
+          <div className="pt-16">
+            <div className="flex pb-7">
+              <p className="pr-16">상품명</p>
+              <input
+                className="border-2 w-[50%] pl-2 text-sm"
+                placeholder="상품명을 입력해주세요"
+                onChange={handleName}></input>
+            </div>
 
-      <div className="flex">
-        <p>설명</p>
-        <textarea onChange={handleContent} className="border-2"></textarea>
-      </div>
-      <div>
-        <button onClick={handleSaleSubmit}>등록하기</button>
+            <div className="flex pb-7">
+              <label htmlFor="category" className="pr-12 mr-1">
+                카테고리
+              </label>
+              <select
+                name="group"
+                id="category"
+                className="border-2 w-[50%] pl-1 text-sm text-slate-400"
+                onChange={handleCategory}>
+                <option>카테고리를 선택해주세요</option>
+                {CATEGORY.map((group) => (
+                  <option value={group.engname}>{group.korname}</option>
+                ))}
+              </select>
+            </div>
+            <div className="select">
+              <div className="flex pb-7">
+                <p className="pr-12 mr-1">거래형태</p>
+                {tradeList.map((trade, index) => (
+                  <>
+                    <input
+                      type="radio"
+                      id={`select${index}`}
+                      name="shop"
+                      value={trade}
+                      onChange={hanldeSelect}
+                    />
+                    <label htmlFor={`select${index}`}>{trade}</label>
+                  </>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex">
+              <p className="pr-12">상품설명</p>
+              <textarea
+                onChange={handleContent}
+                className="border-2 rounded-xl pb-14 w-[50%]"></textarea>
+            </div>
+          </div>
+          <div className="flex justify-end pr-20">
+            <button
+              onClick={handleSaleSubmit}
+              className="bg-black text-white rounded-md px-3 py-1">
+              등록하기
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );

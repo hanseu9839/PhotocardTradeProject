@@ -10,7 +10,8 @@ const MainCategory = () => {
   const router = useRouter();
   const groupId = router.query.groupId;
 
-  const [datas, setData] = useState<DataType>();
+  const [datas, setData] = useState<any>([]);
+
   useEffect(() => {
     setData(JSON.parse(localStorage.getItem("json")));
   }, [groupId]);
@@ -41,7 +42,12 @@ const MainCategory = () => {
         <PhotoCardList></PhotoCardList>
       )}
 
-      {datas && datas.category == groupId && <PhotoCardList></PhotoCardList>}
+      {datas &&
+        datas.length &&
+        datas.map(
+          (item) =>
+            item[0].category == groupId && <PhotoCardList></PhotoCardList>
+        )}
     </>
   );
 };
