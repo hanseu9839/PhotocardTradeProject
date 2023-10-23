@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavLink from "./NavLink";
 import CustomLink from "./CustomLink";
 import { usePageDispatch } from "../../lib/context/PageContext";
@@ -10,8 +10,17 @@ const Navbar = () => {
   const handleClick = React.useCallback(() => setPage?.(0), []);
   const router = useRouter();
   const saleId = router.query.saleId;
-
   const saleIdTest = "1234";
+
+  const [userAuth, setUserAuth] = useState();
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      setUserAuth(true);
+    } else {
+      setUserAuth(false);
+    }
+  }, [userAuth]);
 
   return (
     <nav className="p-5 w-full border-b-2">
@@ -34,16 +43,33 @@ const Navbar = () => {
         </div>
         <div className="flex-1">
           <ul className="flex justify-end m-2">
-            <li>
-              <NavLink href="/user/login" as="/user/login">
-                <span onClick={handleClick}>로그인</span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink href="/user/register" as="/user/register">
-                <span onClick={handleClick}>회원가입</span>
-              </NavLink>
-            </li>
+            {userAuth ? (
+              <>
+                <li>
+                  <NavLink href="/user/info" as="/user/info">
+                    <span onClick={handleClick}>내 정보</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink href="/chatting/chat" as="/chatting/chat">
+                    <span onClick={handleClick}>채팅</span>
+                  </NavLink>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <NavLink href="/user/login" as="/user/login">
+                    <span onClick={handleClick}>로그인</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink href="/user/register" as="/user/register">
+                    <span onClick={handleClick}>회원가입</span>
+                  </NavLink>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>

@@ -1,8 +1,7 @@
 import Head from "next/head";
 import React from "react";
-import LoginInput from "@/components/loginRegistrer/loginInput";
 
-const Login = () => (
+const Info = () => (
   <>
     <Head>
       <title>Regi | NEXT REALWORLD</title>
@@ -11,8 +10,8 @@ const Login = () => (
         content="Please login to use fully-featured next-realworld site. (Post articles, comments, and like, follow etc.)"
       />
     </Head>
-    <LoginInput></LoginInput>
+    내정보
   </>
 );
 
-export default Login;
+export default Info;
