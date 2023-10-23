@@ -9,18 +9,20 @@ const Navbar = () => {
   const setPage = usePageDispatch();
   const handleClick = React.useCallback(() => setPage?.(0), []);
   const router = useRouter();
-  const saleId = router.query.saleId;
   const saleIdTest = "1234";
 
   const [userAuth, setUserAuth] = useState();
+  const [userEmail, setUserEmail] = useState();
 
   useEffect(() => {
-    if (localStorage.getItem("user")) {
+    if (localStorage.getItem("login")) {
       setUserAuth(true);
+      const data = localStorage.getItem("login");
+      setUserEmail(data);
     } else {
       setUserAuth(false);
     }
-  }, [userAuth]);
+  }, [setUserEmail]);
 
   return (
     <nav className="p-5 w-full border-b-2">
@@ -34,12 +36,23 @@ const Navbar = () => {
           </CustomLink>
         </div>
         <div className="flex-1 m-2">
-          <CustomLink
-            className={PHOTOCARD_MENU_BUTTON}
-            href="/sale/[saleId]"
-            as={`/sale/${saleIdTest}`}>
-            <span onClick={handleClick}>포카 판매하기</span>
-          </CustomLink>
+          {userEmail ? (
+            <CustomLink
+              className={PHOTOCARD_MENU_BUTTON}
+              href={`/sale/${userEmail}`}
+              as={`/sale/${userEmail}`}>
+              <span onClick={handleClick}>포카 판매하기</span>
+            </CustomLink>
+          ) : (
+            <>
+              <CustomLink
+                className={PHOTOCARD_MENU_BUTTON}
+                href="/user/login"
+                as={`/user/login`}>
+                <span onClick={handleClick}>포카 판매하기</span>
+              </CustomLink>
+            </>
+          )}
         </div>
         <div className="flex-1">
           <ul className="flex justify-end m-2">

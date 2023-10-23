@@ -15,9 +15,13 @@ const LoginInput = () => {
 
   const handleSubmit = () => {
     const data = JSON.parse(localStorage.getItem("user"));
-    const email = data[0][0].email;
-    const password = data[0][0].password;
-    if (email == userEmail && password == userPassword) {
+    const email = data.map((item) => item[0].email);
+    const password = data.map((item) => item[0].pasword);
+    if (
+      email.filter((useremail) => useremail == userEmail) &&
+      password.filter((userpassword) => userpassword == userPassword)
+    ) {
+      localStorage.setItem("login", userEmail);
       router.push("/");
     } else {
       alert("회원 정보가 없습니다");

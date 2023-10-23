@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React from "react";
-import LoginInput from "@/components/loginRegistrer/loginInput";
+import LoginInput from "@/components/user/loginInput";
 
 const Login = () => (
   <>

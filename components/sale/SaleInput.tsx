@@ -12,6 +12,7 @@ const SaleInput = () => {
   const tradeList = ["직거래", "택배거래"];
 
   const router = useRouter();
+  const saleId = router.query.saleId;
   const imgRef = useRef<HTMLInputElement | null>();
 
   const handleName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,6 +43,7 @@ const SaleInput = () => {
   const data: any = [
     {
       id: uuidv4(),
+      user: saleId,
       name: saleName,
       category: saleCategory,
       select: saleSelect,
