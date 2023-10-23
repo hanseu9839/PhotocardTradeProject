@@ -24,6 +24,12 @@ const Navbar = () => {
     }
   }, [setUserEmail]);
 
+  const handleLogout = () => {
+    localStorage.removeItem("login");
+    alert("로그아웃되었습니다");
+    router.push("/");
+  };
+
   return (
     <nav className="p-5 w-full border-b-2">
       <div className="flex w-full">
@@ -67,6 +73,13 @@ const Navbar = () => {
                   <NavLink href="/chatting/chat" as="/chatting/chat">
                     <span onClick={handleClick}>채팅</span>
                   </NavLink>
+                </li>
+                <li>
+                  <button
+                    onClick={handleLogout}
+                    className="px-2 text-xl text-black-500">
+                    로그아웃
+                  </button>
                 </li>
               </>
             ) : (

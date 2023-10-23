@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 
 const Userinfo = () => {
-  const [content, setContent] = useState();
-  const [user, setUser] = useState();
+  const [content, setContent] = useState([]);
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
     if (localStorage.getItem("login")) {
@@ -26,7 +26,12 @@ const Userinfo = () => {
 
   console.log(content);
   console.log(user);
-  return <></>;
+  return (
+    <>
+      {content.map((item) => item[0].name)}
+      {user}
+    </>
+  );
 };
 
 export default Userinfo;
