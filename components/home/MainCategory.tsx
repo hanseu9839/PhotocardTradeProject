@@ -38,16 +38,7 @@ const MainCategory = () => {
           <li className={MAIN_CATEGORI_BUTTON_ON}></li>
         </ul>
       </div>
-      {(router.route == "/" || "allgroup" == groupId) && (
-        <PhotoCardList></PhotoCardList>
-      )}
-
-      {datas &&
-        datas.length &&
-        datas.map(
-          (item) =>
-            item[0].category == groupId && <PhotoCardList></PhotoCardList>
-        )}
+      <PhotoCardList></PhotoCardList>
     </>
   );
 };

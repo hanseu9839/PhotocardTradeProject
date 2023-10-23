@@ -11,8 +11,6 @@ const Navbar = () => {
   const router = useRouter();
   const saleId = router.query.saleId;
 
-  console.log(saleId);
-
   const saleIdTest = "1234";
 
   return (
