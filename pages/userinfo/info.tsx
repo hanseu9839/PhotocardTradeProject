@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React from "react";
-import Userinfo from "@/components/user/userinfo";
+import Userinfo from "@/components/userinfo/userinfo";
 
 const Info = () => (
   <>

@@ -39,8 +39,8 @@ const Navbar = () => {
           {userEmail ? (
             <CustomLink
               className={PHOTOCARD_MENU_BUTTON}
-              href={`/sale/${userEmail}`}
-              as={`/sale/${userEmail}`}>
+              href={`/sale/${localStorage.getItem("login")}`}
+              as={`/sale/${localStorage.getItem("login")}`}>
               <span onClick={handleClick}>포카 판매하기</span>
             </CustomLink>
           ) : (
@@ -59,7 +59,7 @@ const Navbar = () => {
             {userAuth ? (
               <>
                 <li>
-                  <NavLink href="/user/info" as="/user/info">
+                  <NavLink href="/userinfo/info" as="/userinfo/info">
                     <span onClick={handleClick}>내 정보</span>
                   </NavLink>
                 </li>
