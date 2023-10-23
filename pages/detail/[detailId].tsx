@@ -1,10 +1,11 @@
 import React from "react";
-import { useRouter } from "next/router";
+import DetailView from "@/components/detail/detailView";
 const Detail = () => {
-  const router = useRouter();
-  const detailId = router.query.detailId;
-
-  return <>{detailId}</>;
+  return (
+    <>
+      <DetailView></DetailView>
+    </>
+  );
 };
 
 export default Detail;
