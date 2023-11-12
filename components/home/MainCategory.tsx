@@ -4,7 +4,6 @@ import { MAIN_CATEGORI_BUTTON_ON } from "../../lib/utils/styles";
 import { CATEGORY } from "@/lib/utils/constant";
 import NavLink from "../common/NavLink";
 import PhotoCardList from "../common/photoCardList";
-import { DataType } from "@/lib/types/dataType";
 
 const MainCategory = () => {
   const router = useRouter();

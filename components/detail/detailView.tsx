@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { DataType } from "@/lib/types/dataType";
+
 import { useRouter } from "next/router";
 import { PHOTOCARD_MENU_BUTTON } from "@/lib/utils/styles";
 
@@ -18,7 +18,7 @@ const detailView = () => {
       {data && data.length && (
         <>
           {data.map(
-            (item, index) =>
+            (item: any, index: any) =>
               item[0].id == detailId && (
                 <div className="p-20 w-full [text-align:-webkit-center]">
                   <div className="flex justify-center">

@@ -6,20 +6,20 @@ const LoginInput = () => {
   const [userPassword, setUserPassword] = useState("");
 
   const router = useRouter();
-  const handleEmail = (e) => {
+  const handleEmail = (e: any) => {
     setUserEmail(e.target.value);
   };
-  const handlePassword = (e) => {
+  const handlePassword = (e: any) => {
     setUserPassword(e.target.value);
   };
 
   const handleSubmit = () => {
     const data = JSON.parse(localStorage.getItem("user"));
-    const email = data.map((item) => item[0].email);
-    const password = data.map((item) => item[0].pasword);
+    const email = data.map((item: any) => item[0].email);
+    const password = data.map((item: any) => item[0].pasword);
     if (
-      email.filter((useremail) => useremail == userEmail) &&
-      password.filter((userpassword) => userpassword == userPassword)
+      email.filter((useremail: any) => useremail == userEmail) &&
+      password.filter((userpassword: any) => userpassword == userPassword)
     ) {
       localStorage.setItem("login", userEmail);
       router.push("/");

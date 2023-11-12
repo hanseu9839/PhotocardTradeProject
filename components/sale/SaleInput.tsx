@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import { CATEGORY } from "@/lib/utils/constant";
-import { DataType } from "@/lib/types/dataType";
 import { v4 as uuidv4 } from "uuid";
 const SaleInput = () => {
   const [saleName, setSaleName] = useState("");

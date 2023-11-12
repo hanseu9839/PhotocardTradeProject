@@ -5,13 +5,13 @@ const RegisterInput = () => {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const handleUserName = (e) => {
+  const handleUserName = (e: any) => {
     setUserName(e.target.value);
   };
-  const handleEmail = (e) => {
+  const handleEmail = (e: any) => {
     setUserEmail(e.target.value);
   };
-  const handlePassword = (e) => {
+  const handlePassword = (e: any) => {
     setUserPassword(e.target.value);
   };
 

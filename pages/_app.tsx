@@ -2,7 +2,7 @@ import Head from "next/head";
 import React from "react";
 
 import "../styles/globals.css";
-import Layout from "components/common/Layout";
+import Layout from "../components/common/Layout";
 
 const MyApp = ({ Component, pageProps }: any) => (
   <>

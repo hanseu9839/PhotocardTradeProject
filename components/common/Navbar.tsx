@@ -11,8 +11,8 @@ const Navbar = () => {
   const router = useRouter();
   const saleIdTest = "1234";
 
-  const [userAuth, setUserAuth] = useState();
-  const [userEmail, setUserEmail] = useState();
+  const [userAuth, setUserAuth] = useState<any | undefined>();
+  const [userEmail, setUserEmail] = useState<any | undefined>();
 
   useEffect(() => {
     if (localStorage.getItem("login")) {

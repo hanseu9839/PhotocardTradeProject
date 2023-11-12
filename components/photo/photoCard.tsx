@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { DataType } from "@/lib/types/dataType";
+
 import { useRouter } from "next/router";
 
 const photoCard = () => {
@@ -13,7 +13,7 @@ const photoCard = () => {
     setData(JSON.parse(localStorage.getItem("json")));
   }, []);
 
-  const handleClick = (item) => {
+  const handleClick = (item: any) => {
     router.push(`/detail/${item}`);
   };
 
@@ -22,7 +22,7 @@ const photoCard = () => {
       {data && data.length && (
         <>
           {data.map(
-            (item, index) =>
+            (item: any, index: any) =>
               item[0].category == groupId && (
                 <button
                   onClick={() => handleClick(item[0].id)}
@@ -46,7 +46,7 @@ const photoCard = () => {
       {data && data.length && (
         <>
           {data.map(
-            (item) =>
+            (item: any) =>
               (router.route == "/" || "allgroup" == groupId) && (
                 <button
                   onClick={() => handleClick(item[0].id)}
