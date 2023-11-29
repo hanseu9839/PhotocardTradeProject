@@ -5,7 +5,6 @@ const LoginInput = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
-  const router = useRouter();
   const handleEmail = (e: any) => {
     setUserEmail(e.target.value);
   };
@@ -13,36 +12,23 @@ const LoginInput = () => {
     setUserPassword(e.target.value);
   };
 
-  const handleSubmit = () => {
-    const data = JSON.parse(localStorage.getItem("user"));
-    const email = data.map((item: any) => item[0].email);
-    const password = data.map((item: any) => item[0].pasword);
-    if (
-      email.filter((useremail: any) => useremail == userEmail) &&
-      password.filter((userpassword: any) => userpassword == userPassword)
-    ) {
-      localStorage.setItem("login", userEmail);
-      router.push("/");
-    } else {
-      alert("회원 정보가 없습니다");
-    }
-  };
+  const handleSubmit = () => {};
 
   return (
     <>
       <div className="pl-4 pt-28 text-center">
-        <p className=" text-5xl italic font-bold text-center">Sing Up</p>
+        <p className=" text-5xl italic font-bold text-center">Sign Up</p>
         <div>
           <input
-            className="border-2 w-[30%] mt-10 mb-4 text-2xl rounded-xl px-3 py-2"
-            placeholder="Email"
+            className="border-2 w-[30%] mt-10 mb-4 text-xl rounded-xl px-3 py-2"
+            placeholder="아이디"
             onChange={handleEmail}
             type="email"></input>
         </div>
         <div>
           <input
-            className="border-2 w-[30%] mb-10 text-2xl rounded-xl px-3 py-2"
-            placeholder="Password"
+            className="border-2 w-[30%] mb-10 text-xl rounded-xl px-3 py-2"
+            placeholder="비밀번호"
             onChange={handlePassword}
             type="Password"></input>
         </div>

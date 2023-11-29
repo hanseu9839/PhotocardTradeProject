@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useRouter } from "next/router";
+import api from "../../API/api";
 
 const RegisterInput = () => {
-  const [userName, setUserName] = useState("");
+  const [userId, setUserId] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const handleUserName = (e: any) => {
-    setUserName(e.target.value);
+  const [userPhonenumber, setUserPhonenumber] = useState("");
+  const handleUserId = (e: any) => {
+    setUserId(e.target.value);
   };
   const handleEmail = (e: any) => {
     setUserEmail(e.target.value);
@@ -14,51 +15,50 @@ const RegisterInput = () => {
   const handlePassword = (e: any) => {
     setUserPassword(e.target.value);
   };
+  const handlePhonenumber = (e: any) => {
+    setUserPhonenumber(e.target.value);
+  };
 
-  const user: any = [
-    {
-      name: userName,
-      email: userEmail,
-      password: userPassword,
-    },
-  ];
-  let newjson: any = [];
-
-  const handleSubmit = () => {
-    if (localStorage.getItem("user")) {
-      JSON.parse(localStorage.getItem("user"));
-      let newjson = JSON.parse(localStorage.getItem("user"));
-      newjson.push(user);
-      console.log(newjson);
-      localStorage.setItem("user", JSON.stringify(newjson));
-    } else {
-      newjson.push(user);
-      localStorage.setItem("user", JSON.stringify(newjson));
-    }
+  const handleSubmit = async () => {
+    await api.member(userId, userPassword, userEmail, userPhonenumber);
   };
 
   return (
     <>
       <div className="pl-4 pt-28 text-center">
-        <p className=" text-5xl italic font-bold text-center">Sing Up</p>
+        <p className=" text-5xl italic font-bold text-center">Sign Up</p>
         <div>
           <input
-            className="border-2 w-[30%] mt-10 mb-4 text-2xl rounded-xl px-3 py-2"
-            placeholder="Username"
-            onChange={handleUserName}
+            className="border-2 w-[30%] mt-10 mb-4 text-xl rounded-xl px-3 py-2"
+            placeholder="아이디"
+            onChange={handleUserId}
             type="text"></input>
         </div>
         <div>
           <input
-            className="border-2 w-[30%] mb-4 text-2xl rounded-xl px-3 py-2"
-            placeholder="Email"
+            className="border-2 w-[30%] mb-4 text-xl rounded-xl px-3 py-2"
+            placeholder="이메일"
             onChange={handleEmail}
             type="email"></input>
         </div>
         <div>
           <input
-            className="border-2 w-[30%] mb-10 text-2xl rounded-xl px-3 py-2"
-            placeholder="Password"
+            className="border-2 w-[30%] mb-4 text-xl rounded-xl px-3 py-2"
+            placeholder="비밀번호"
+            onChange={handlePassword}
+            type="Password"></input>
+        </div>
+        <div>
+          <input
+            className="border-2 w-[30%] mb-4 text-xl rounded-xl px-3 py-2"
+            placeholder="휴대폰번호"
+            onChange={handlePhonenumber}
+            type="text"></input>
+        </div>
+        <div>
+          <input
+            className="border-2 w-[30%] mb-10 text-xl rounded-xl px-3 py-2"
+            placeholder="비밀번호 확인"
             onChange={handlePassword}
             type="Password"></input>
         </div>
