@@ -11,8 +11,8 @@ export default {
   },
   login: (user_id, password) => {
     API_AXIOS.post(`/login`, {
-      user_id: user_id,
-      pasword: password,
+      userId: user_id,
+      password: password,
     });
   },
 };

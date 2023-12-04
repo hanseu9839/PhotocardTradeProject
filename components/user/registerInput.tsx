@@ -36,10 +36,11 @@ const RegisterInput = () => {
         </div>
         <div>
           <input
-            className="border-2 w-[30%] mb-4 text-xl rounded-xl px-3 py-2"
+            className="border-2 w-[20%] mb-4 text-xl rounded-xl px-3 py-2"
             placeholder="이메일"
             onChange={handleEmail}
             type="email"></input>
+          <button className="w-[10%]">이메일 인증</button>
         </div>
         <div>
           <input

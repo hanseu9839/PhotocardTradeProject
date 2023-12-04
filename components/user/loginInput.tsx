@@ -1,18 +1,20 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useRouter } from "next/router";
+import React, { useState } from "react";
+import api from "../../API/api";
 
 const LoginInput = () => {
-  const [userEmail, setUserEmail] = useState("");
+  const [userID, setUserID] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
-  const handleEmail = (e: any) => {
-    setUserEmail(e.target.value);
+  const handleID = (e: any) => {
+    setUserID(e.target.value);
   };
   const handlePassword = (e: any) => {
     setUserPassword(e.target.value);
   };
-
-  const handleSubmit = () => {};
+  const handleSubmit = async () => {
+    const loginResult = await api.login(userID, userPassword);
+    console.log(loginResult);
+  };
 
   return (
     <>
@@ -22,8 +24,8 @@ const LoginInput = () => {
           <input
             className="border-2 w-[30%] mt-10 mb-4 text-xl rounded-xl px-3 py-2"
             placeholder="아이디"
-            onChange={handleEmail}
-            type="email"></input>
+            onChange={handleID}
+            type="text"></input>
         </div>
         <div>
           <input
