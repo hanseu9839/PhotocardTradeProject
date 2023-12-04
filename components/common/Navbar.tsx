@@ -15,17 +15,18 @@ const Navbar = () => {
   const [userEmail, setUserEmail] = useState<any | undefined>();
 
   useEffect(() => {
-    if (localStorage.getItem("login")) {
+    if (localStorage.getItem("accessToken") && localStorage.getItem("userID")) {
+      const userID = localStorage.getItem("userID");
       setUserAuth(true);
-      const data = localStorage.getItem("login");
-      setUserEmail(data);
+      setUserEmail(userID);
     } else {
       setUserAuth(false);
     }
-  }, [setUserEmail]);
+  });
 
   const handleLogout = () => {
-    localStorage.removeItem("login");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("userID");
     alert("로그아웃되었습니다");
     router.push("/");
   };

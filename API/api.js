@@ -10,7 +10,7 @@ export default {
     });
   },
   login: (user_id, password) => {
-    API_AXIOS.post(`/login`, {
+    return API_AXIOS.post(`/login`, {
       userId: user_id,
       password: password,
     });

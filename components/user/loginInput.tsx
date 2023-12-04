@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import api from "../../API/api";
 
 const LoginInput = () => {
   const [userID, setUserID] = useState("");
   const [userPassword, setUserPassword] = useState("");
+
+  const router = useRouter();
 
   const handleID = (e: any) => {
     setUserID(e.target.value);
@@ -12,8 +15,12 @@ const LoginInput = () => {
     setUserPassword(e.target.value);
   };
   const handleSubmit = async () => {
-    const loginResult = await api.login(userID, userPassword);
-    console.log(loginResult);
+    const loginResult: any = await api.login(userID, userPassword);
+    const logindata: any = loginResult.data.data;
+    localStorage.setItem("accessToken", logindata.accessToken);
+    localStorage.setItem("refreshToken", logindata.refreshToken);
+    localStorage.setItem("userID", logindata.userId);
+    router.push("/");
   };
 
   return (
