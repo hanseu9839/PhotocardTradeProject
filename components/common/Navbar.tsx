@@ -1,32 +1,26 @@
 import React, { useEffect, useState } from "react";
+import useSWR, { mutate } from "swr";
 import NavLink from "./NavLink";
 import CustomLink from "./CustomLink";
 import { usePageDispatch } from "../../lib/context/PageContext";
 import { PHOTOCARD_MENU_BUTTON } from "../../lib/utils/styles";
 import { useRouter } from "next/router";
+import checkLogin from "@/lib/utils/checkLogin";
+import storage from "@/lib/utils/storage";
+import Maybe from "./Maybe";
 
 const Navbar = () => {
   const setPage = usePageDispatch();
+  const { data: currentUser } = useSWR("user", storage);
+  console.log(currentUser);
+  const isLoggedIn: any = checkLogin(currentUser);
   const handleClick = React.useCallback(() => setPage?.(0), []);
   const router = useRouter();
-  const saleIdTest = "1234";
 
-  const [userAuth, setUserAuth] = useState<any | undefined>();
-  const [userEmail, setUserEmail] = useState<any | undefined>();
-
-  useEffect(() => {
-    if (localStorage.getItem("accessToken") && localStorage.getItem("userID")) {
-      const userID = localStorage.getItem("userID");
-      setUserAuth(true);
-      setUserEmail(userID);
-    } else {
-      setUserAuth(false);
-    }
-  });
-
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("userID");
+  const handleLogout = (e: any) => {
+    e.preventDefault();
+    window.localStorage.removeItem("user");
+    mutate("user", null);
     alert("로그아웃되었습니다");
     router.push("/");
   };
@@ -43,61 +37,47 @@ const Navbar = () => {
           </CustomLink>
         </div>
         <div className="flex-1 m-2">
-          {userEmail ? (
+          <Maybe test={isLoggedIn}>
             <CustomLink
               className={PHOTOCARD_MENU_BUTTON}
-              href={`/sale/${localStorage.getItem("login")}`}
-              as={`/sale/${localStorage.getItem("login")}`}>
+              href={`/sale/11`}
+              as={`/sale/11`}>
               <span onClick={handleClick}>포카 판매하기</span>
             </CustomLink>
-          ) : (
-            <>
-              <CustomLink
-                className={PHOTOCARD_MENU_BUTTON}
-                href="/user/login"
-                as={`/user/login`}>
-                <span onClick={handleClick}>포카 판매하기</span>
-              </CustomLink>
-            </>
-          )}
-        </div>
-        <div className="flex-1">
-          <ul className="flex justify-end m-2">
-            {userAuth ? (
-              <>
-                <li>
-                  <NavLink href="/userinfo/info" as="/userinfo/info">
-                    <span onClick={handleClick}>내 정보</span>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink href="/chatting/chat" as="/chatting/chat">
-                    <span onClick={handleClick}>채팅</span>
-                  </NavLink>
-                </li>
-                <li>
-                  <button
-                    onClick={handleLogout}
-                    className="px-2 text-xl text-black-500">
-                    로그아웃
-                  </button>
-                </li>
-              </>
-            ) : (
-              <>
-                <li>
-                  <NavLink href="/user/login" as="/user/login">
-                    <span onClick={handleClick}>로그인</span>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink href="/user/register" as="/user/register">
-                    <span onClick={handleClick}>회원가입</span>
-                  </NavLink>
-                </li>
-              </>
-            )}
-          </ul>
+            <ul className="flex justify-end m-2">
+              <li>
+                <NavLink href="/userinfo/info" as="/userinfo/info">
+                  <span onClick={handleClick}>내 정보</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink href="/chatting/chat" as="/chatting/chat">
+                  <span onClick={handleClick}>채팅</span>
+                </NavLink>
+              </li>
+              <li>
+                <button
+                  className="px-2 text-xl text-black-500"
+                  onClick={handleLogout}>
+                  로그아웃
+                </button>
+              </li>
+            </ul>
+          </Maybe>
+          <Maybe test={!isLoggedIn}>
+            <ul className="flex justify-end m-2">
+              <li>
+                <NavLink href="/user/login" as="/user/login">
+                  <span onClick={handleClick}>로그인</span>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink href="/user/register" as="/user/register">
+                  <span onClick={handleClick}>회원가입</span>
+                </NavLink>
+              </li>
+            </ul>
+          </Maybe>
         </div>
       </div>
     </nav>
