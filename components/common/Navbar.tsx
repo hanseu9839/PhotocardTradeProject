@@ -12,7 +12,7 @@ import Maybe from "./Maybe";
 const Navbar = () => {
   const setPage = usePageDispatch();
   const { data: currentUser } = useSWR("user", storage);
-  console.log(currentUser);
+
   const isLoggedIn: any = checkLogin(currentUser);
   const handleClick = React.useCallback(() => setPage?.(0), []);
   const router = useRouter();
@@ -36,47 +36,55 @@ const Navbar = () => {
             <span onClick={handleClick}>PHOTOCARD</span>
           </CustomLink>
         </div>
-        <div className="flex-1 m-2">
+        <div className="flex flex-auto">
           <Maybe test={isLoggedIn}>
             <CustomLink
               className={PHOTOCARD_MENU_BUTTON}
-              href={`/sale/11`}
-              as={`/sale/11`}>
+              href={`/sale/new`}
+              as={`/sale/new`}>
               <span onClick={handleClick}>포카 판매하기</span>
             </CustomLink>
-            <ul className="flex justify-end m-2">
-              <li>
-                <NavLink href="/userinfo/info" as="/userinfo/info">
-                  <span onClick={handleClick}>내 정보</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink href="/chatting/chat" as="/chatting/chat">
-                  <span onClick={handleClick}>채팅</span>
-                </NavLink>
-              </li>
-              <li>
-                <button
-                  className="px-2 text-xl text-black-500"
-                  onClick={handleLogout}>
-                  로그아웃
-                </button>
-              </li>
-            </ul>
+            <div className="flex-auto m-2">
+              <ul className="flex justify-end">
+                <li>
+                  <NavLink
+                    href={`/userinfo/${currentUser?.userId}`}
+                    as={`/userinfo/${currentUser?.userId}`}>
+                    <span onClick={handleClick}>내 정보</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    href={`/chatting/${currentUser?.userId}`}
+                    as={`/chatting/${currentUser?.userId}`}>
+                    <span onClick={handleClick}>채팅</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <button
+                    className="px-2 text-xl text-black-500"
+                    onClick={handleLogout}>
+                    로그아웃
+                  </button>
+                </li>
+              </ul>
+            </div>
           </Maybe>
           <Maybe test={!isLoggedIn}>
-            <ul className="flex justify-end m-2">
-              <li>
-                <NavLink href="/user/login" as="/user/login">
-                  <span onClick={handleClick}>로그인</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink href="/user/register" as="/user/register">
-                  <span onClick={handleClick}>회원가입</span>
-                </NavLink>
-              </li>
-            </ul>
+            <div className="flex-auto m-2">
+              <ul className="flex justify-end ">
+                <li>
+                  <NavLink href="/user/login" as="/user/login">
+                    <span onClick={handleClick}>로그인</span>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink href="/user/register" as="/user/register">
+                    <span onClick={handleClick}>회원가입</span>
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
           </Maybe>
         </div>
       </div>
