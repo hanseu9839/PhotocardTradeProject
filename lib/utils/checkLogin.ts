@@ -1,4 +1,4 @@
-const checkLogin = (currentUser) =>
+const checkLogin = (currentUser: any) =>
   !!currentUser &&
   currentUser?.constructor === Object &&
   Object.keys(currentUser).length !== 0;

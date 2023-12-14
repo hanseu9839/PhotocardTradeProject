@@ -12,20 +12,20 @@ const photoCard = () => {
 
   const { data: data } = useSWR("posting", storage);
 
-  const handleClick = (item: any) => {
+  const handleClick = (item) => {
     router.push(`/detail/${item}`);
   };
 
   return (
     <>
-      {data && data.length && (
+      {data && Array.from(data).length && (
         <>
           {data.map(
-            (item: any, index: any) =>
+            (item, index) =>
               item[0].category == groupId && (
                 <button
                   onClick={() => handleClick(item[1])}
-                  key={index}
+                  // key={index}
                   value={item[1]}
                   className="border-2 w-max">
                   <div className="w-[250px] h-[250px]">
@@ -45,7 +45,7 @@ const photoCard = () => {
       {data && data.length && (
         <>
           {data.map(
-            (item: any) =>
+            (item) =>
               (router.route == "/" || "allgroup" == groupId) && (
                 <button
                   onClick={() => handleClick(item[1])}

@@ -1,4 +1,4 @@
-const saleReducer = (state, action) => {
+const saleReducer = (state: any, action: any) => {
   switch (action.type) {
     case "SET_TITLE":
       return {

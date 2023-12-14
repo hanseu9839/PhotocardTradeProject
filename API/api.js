@@ -11,8 +11,16 @@ export default {
   },
   login: (user_id, password) => {
     return API_AXIOS.post(`/login`, {
-      userId: user_id,
+      user_id: user_id,
       password: password,
+    });
+  },
+  duplicationcheck: (userid) => {
+    return API_AXIOS.get(`/duplication-check/user-id/${userid}`, {
+      headers: {
+        "Content-Type": `application/json`,
+        "ngrok-skip-browser-warning": "69420",
+      },
     });
   },
 };

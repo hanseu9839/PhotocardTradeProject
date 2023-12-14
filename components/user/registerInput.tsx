@@ -23,24 +23,36 @@ const RegisterInput = () => {
     await api.member(userId, userPassword, userEmail, userPhonenumber);
   };
 
+  const handleExist = async () => {
+    try {
+      const { data, status } = await api.duplicationcheck(userId);
+
+      console.log(data);
+      console.log(status);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <div className="pl-4 pt-28 text-center">
         <p className=" text-5xl italic font-bold text-center">Sign Up</p>
         <div>
           <input
-            className="border-2 w-[30%] mt-10 mb-4 text-xl rounded-xl px-3 py-2"
+            className="border-2 w-[20%] mt-10 mb-4 text-xl rounded-xl px-3 py-2"
             placeholder="아이디"
             onChange={handleUserId}
             type="text"></input>
+          <button className="w-[10%]" onClick={handleExist}>
+            중복확인
+          </button>
         </div>
         <div>
           <input
-            className="border-2 w-[20%] mb-4 text-xl rounded-xl px-3 py-2"
+            className="border-2 w-[30%] mb-4 text-xl rounded-xl px-3 py-2"
             placeholder="이메일"
             onChange={handleEmail}
             type="email"></input>
-          <button className="w-[10%]">이메일 인증</button>
         </div>
         <div>
           <input
@@ -74,5 +86,4 @@ const RegisterInput = () => {
     </>
   );
 };
-
 export default RegisterInput;
