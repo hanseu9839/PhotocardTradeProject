@@ -38,8 +38,6 @@ const LoginInput = () => {
     }
   };
 
-  console.log(errors);
-
   return (
     <>
       <div className="pl-4 pt-28 text-center">

@@ -2,11 +2,11 @@ import { API_AXIOS } from "./Axios";
 
 export default {
   member: (user_id, password, user_email, phone_number) => {
-    API_AXIOS.post(`/member`, {
-      userId: user_id,
+    return API_AXIOS.post(`/member`, {
+      user_id: user_id,
       password: password,
-      phoneNumber: phone_number,
-      userEmail: user_email,
+      phone_number: phone_number,
+      user_email: user_email,
     });
   },
   login: (user_id, password) => {

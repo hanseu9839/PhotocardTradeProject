@@ -1,34 +1,77 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useReducer } from "react";
 import api from "../../API/api";
+import userReducer from "@/lib/utils/userReducer";
+import { useRouter } from "next/router";
 
 const RegisterInput = () => {
-  const [userId, setUserId] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
-  const [userPhonenumber, setUserPhonenumber] = useState("");
+  const initialState = {
+    userid: "",
+    useremail: "",
+    password: "",
+    phonenumber: "",
+  };
+  const [userData, dispatch] = useReducer(userReducer, initialState);
+  const [passwordcheck, setPasswordCheck] = useState<Boolean>();
+  const [userIdcheck, setUserIdCheck] = useState<Boolean>(true);
+  const router = useRouter();
+
   const handleUserId = (e: any) => {
-    setUserId(e.target.value);
+    dispatch({ type: "SET_USERID", text: e.target.value });
   };
   const handleEmail = (e: any) => {
-    setUserEmail(e.target.value);
+    dispatch({ type: "SET_USEREMAIL", text: e.target.value });
   };
+
   const handlePassword = (e: any) => {
-    setUserPassword(e.target.value);
+    dispatch({ type: "SET_PASSWORD", text: e.target.value });
   };
+
   const handlePhonenumber = (e: any) => {
-    setUserPhonenumber(e.target.value);
+    dispatch({ type: "SET_PHONENUMBER", text: e.target.value });
   };
 
   const handleSubmit = async () => {
-    await api.member(userId, userPassword, userEmail, userPhonenumber);
+    try {
+      if (passwordcheck && !userIdcheck) {
+        const { data, status } = await api.member(
+          userData.userid,
+          userData.password,
+          userData.useremail,
+          userData.phonenumber
+        );
+        console.log(status);
+
+        router.push("/user/login");
+      } else if (!passwordcheck) {
+        alert("비밀번호 확인이 필요합니다");
+      } else if (userIdcheck) {
+        alert("중복확인이 필요합니다");
+      }
+    } catch (error) {
+      if (error.response.data.status == 409) {
+        alert("이메일 중복입니다");
+        router.push("/user/register");
+      }
+    }
+  };
+
+  const handlePasswordCheck = (e: any) => {
+    if (userData.password === e.target.value) {
+      setPasswordCheck(true);
+    } else {
+      setPasswordCheck(false);
+    }
   };
 
   const handleExist = async () => {
     try {
-      const { data, status } = await api.duplicationcheck(userId);
-
-      console.log(data);
-      console.log(status);
+      const { data, status } = await api.duplicationcheck(userData.userid);
+      if (data.result) {
+        alert("존재하는 아이디입니다.");
+      } else if (!data.result) {
+        alert("중복확인이 완료되었습니다.");
+        setUserIdCheck(data.result);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -63,17 +106,17 @@ const RegisterInput = () => {
         </div>
         <div>
           <input
+            className="border-2 w-[30%] mb-10 text-xl rounded-xl px-3 py-2"
+            placeholder="비밀번호 확인"
+            onChange={handlePasswordCheck}
+            type="Password"></input>
+        </div>
+        <div>
+          <input
             className="border-2 w-[30%] mb-4 text-xl rounded-xl px-3 py-2"
             placeholder="휴대폰번호"
             onChange={handlePhonenumber}
             type="text"></input>
-        </div>
-        <div>
-          <input
-            className="border-2 w-[30%] mb-10 text-xl rounded-xl px-3 py-2"
-            placeholder="비밀번호 확인"
-            onChange={handlePassword}
-            type="Password"></input>
         </div>
         <div className="w-[65%] flex justify-end">
           <button
