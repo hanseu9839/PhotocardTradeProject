@@ -1,4 +1,4 @@
-import { API_AXIOS } from "./Axios";
+import { API_AXIOS } from "../Axios";
 
 export default {
   member: (user_id, password, user_email, phone_number) => {
@@ -17,6 +17,19 @@ export default {
   },
   duplicationcheck: (userid) => {
     return API_AXIOS.get(`/duplication-check/user-id/${userid}`, {
+      headers: {
+        "Content-Type": `application/json`,
+        "ngrok-skip-browser-warning": "69420",
+      },
+    });
+  },
+  emailauth: (userEmail) => {
+    return API_AXIOS.post(`/auth/email`, {
+      user_email: userEmail,
+    });
+  },
+  emailauthCheck: (authnumber, userEmail) => {
+    return API_AXIOS.get(`/auth/email/${authnumber}?user_email=${userEmail}`, {
       headers: {
         "Content-Type": `application/json`,
         "ngrok-skip-browser-warning": "69420",

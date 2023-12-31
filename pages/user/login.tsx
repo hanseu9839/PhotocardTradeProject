@@ -1,18 +1,17 @@
-import Head from "next/head";
-import React from "react";
-import LoginInput from "@/components/user/loginInput";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { mutate } from "swr";
+import api from "../../API/user/userApi";
+import LoginForm from "@/components/user/loginForm";
+import Header from "@/components/common/header";
 
-const Login = () => (
-  <>
-    <Head>
-      <title>Regi | NEXT REALWORLD</title>
-      <meta
-        name="description"
-        content="Please login to use fully-featured next-realworld site. (Post articles, comments, and like, follow etc.)"
-      />
-    </Head>
-    <LoginInput></LoginInput>
-  </>
-);
+const Login = () => {
+  return (
+    <>
+      <Header titleText="LOGIN"></Header>
+      <LoginForm></LoginForm>
+    </>
+  );
+};
 
 export default Login;
